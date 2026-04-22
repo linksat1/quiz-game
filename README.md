@@ -148,3 +148,5 @@ quiz-game/
 - 클래스와 객체(`__init__`, `self`, 속성, 메서드)
 - 파일 입출력과 JSON 포맷, `try/except` 예외 처리
 - Git 기초: `init`, `add`, `commit`, `push`, `pull`, `checkout`, `clone`과 브랜치 병합
+
+> clone 실습 기록
