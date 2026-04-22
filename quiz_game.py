@@ -3,10 +3,12 @@ quiz_game.py
 게임 전체 흐름을 관리하는 QuizGame 클래스.
 - 메뉴 표시
 - 퀴즈 풀기
+- 퀴즈 추가
 """
 
+from quiz import Quiz
 from default_quizzes import get_default_quizzes
-from input_utils import read_int_in_range
+from input_utils import read_int_in_range, read_nonempty_string
 
 
 class QuizGame:
@@ -35,6 +37,8 @@ class QuizGame:
 
             if choice == 1:
                 self.play_quiz()
+            elif choice == 2:
+                self.add_quiz()
             elif choice == 5:
                 print("\n👋  게임을 종료합니다. 안녕히 가세요!\n")
                 break
@@ -74,3 +78,25 @@ class QuizGame:
             best_text = f"{self.best_score}점" if self.best_score >= 0 else "미기록"
             print(f"현재 최고 점수: {best_text}")
         print("=" * 40)
+
+    # ---------------------------------------------------------------
+    # 2. 퀴즈 추가
+    # ---------------------------------------------------------------
+    def add_quiz(self) -> None:
+        print("\n📌  새로운 퀴즈를 추가합니다.\n")
+
+        question = read_nonempty_string("문제를 입력하세요: ")
+        choices = []
+        for i in range(1, 5):
+            choice = read_nonempty_string(f"선택지 {i}: ")
+            choices.append(choice)
+        answer = read_int_in_range("정답 번호 (1-4): ", 1, 4)
+
+        try:
+            new_quiz = Quiz(question=question, choices=choices, answer=answer)
+        except ValueError as e:
+            print(f"⚠️  퀴즈 생성 실패: {e}")
+            return
+
+        self.quizzes.append(new_quiz)
+        print("\n✅  퀴즈가 추가되었습니다!")
