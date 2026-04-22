@@ -13,9 +13,13 @@ def main() -> None:
     try:
         game.run()
     except KeyboardInterrupt:
-        print("\n\n⏹️   Ctrl+C 감지. 종료합니다.")
+        # Ctrl+C로 종료 요청
+        print("\n\n⏹️   Ctrl+C 감지. 현재 상태를 저장하고 종료합니다.")
+        game.save_state()
     except EOFError:
-        print("\n\n⏹️   입력이 종료되었습니다. 종료합니다.")
+        # 입력 스트림이 닫힘 (파이프 종료 등)
+        print("\n\n⏹️   입력이 종료되었습니다. 현재 상태를 저장하고 종료합니다.")
+        game.save_state()
 
 
 if __name__ == "__main__":
