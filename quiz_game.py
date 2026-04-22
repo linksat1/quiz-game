@@ -2,8 +2,7 @@
 quiz_game.py
 게임 전체 흐름을 관리하는 QuizGame 클래스.
 - 메뉴 표시
-- 퀴즈 풀기
-- 퀴즈 추가
+- 퀴즈 풀기 / 추가 / 목록 / 점수 확인
 """
 
 from quiz import Quiz
@@ -39,11 +38,13 @@ class QuizGame:
                 self.play_quiz()
             elif choice == 2:
                 self.add_quiz()
+            elif choice == 3:
+                self.show_quiz_list()
+            elif choice == 4:
+                self.show_best_score()
             elif choice == 5:
                 print("\n👋  게임을 종료합니다. 안녕히 가세요!\n")
                 break
-            else:
-                print("\n(아직 구현되지 않은 기능입니다.)")
 
     # ---------------------------------------------------------------
     # 1. 퀴즈 풀기
@@ -100,3 +101,27 @@ class QuizGame:
 
         self.quizzes.append(new_quiz)
         print("\n✅  퀴즈가 추가되었습니다!")
+
+    # ---------------------------------------------------------------
+    # 3. 퀴즈 목록
+    # ---------------------------------------------------------------
+    def show_quiz_list(self) -> None:
+        if not self.quizzes:
+            print("\nℹ️  등록된 퀴즈가 없습니다.")
+            return
+
+        print(f"\n📋  등록된 퀴즈 목록 (총 {len(self.quizzes)}개)\n")
+        print("-" * 40)
+        for i, quiz in enumerate(self.quizzes, start=1):
+            print(f"[{i}] {quiz.question}")
+        print("-" * 40)
+
+    # ---------------------------------------------------------------
+    # 4. 점수 확인
+    # ---------------------------------------------------------------
+    def show_best_score(self) -> None:
+        print()
+        if self.best_score < 0:
+            print("ℹ️  아직 퀴즈를 풀지 않았습니다. 먼저 퀴즈를 풀어 보세요!")
+        else:
+            print(f"🏆  최고 점수: {self.best_score}점")
